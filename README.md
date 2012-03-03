@@ -14,7 +14,7 @@ The scripts are configured to produce the smallest binary possible, with Curl be
 
 All builds scripts share this configuration, although you can chose to include/exclude HTTPS support.
 
-> **Note**
+> **Note**  
 >  The recommended build configuration is with HTTPS support using OpenSSL. OpenSSL is smaller and has been integrated with curl since curl's inception.
 
 
@@ -40,7 +40,7 @@ If you want to generated curl binary to have HTTPS support via OpenSSL (Apache-s
 
 If you want to generated curl binary to have HTTPS support via GnuTLS (LGPL license), use the build scripts at `with-https-openssl/` folder.
 
-> **Note**
+> **Note**  
 > These scripts use GnuTLS 2.* rather than 3.*, since 3.* depends on libnettle which in turn depends on libgmp and I couldn't build libgmp for armvX
 
 - **Dependencies:** libgnutls, libgcrypt, libgpg-error
@@ -59,5 +59,10 @@ For development on iOS, the first one is recommended - allows you to run the app
 
 When you're about to build the final release (to submit to the app store), you should use the third one - 
 
-> **ProTip™**
+> **ProTip™**  
 > Use different build targets, and include different variations of the above files in each of them so this process is automatic.
+
+
+## Acknowledgments
+
+These scripts are based on the excellent work from (x2on)[https://github.com/x2on], with some help from (Bob)[http://stackoverflow.com/questions/9039554/using-libcurl-on-ios-5-as-an-alternative-to-nsurlconnection/9528936#9528936].
