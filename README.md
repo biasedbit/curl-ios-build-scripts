@@ -7,6 +7,7 @@ Automated scripts to build curl for iOS. Supports:
 - older iPhones (arm v6)
 - newer iPhones/iPads (arm v7)
 
+---
 
 ## Default configuration
 
@@ -17,6 +18,7 @@ All builds scripts share this configuration, although you can chose to include/e
 > **Note**  
 >  The recommended build configuration is with HTTPS support using OpenSSL. OpenSSL is smaller and has been integrated with curl since curl's inception.
 
+---
 
 ## Building without HTTPS support
 
@@ -27,6 +29,7 @@ You can find the build scripts for curl without HTTPS support on `without-https/
 - **Dependencies:** none
 - **Total binary size:** ~900KB (~900KB for libcurl.a)
 
+---
 
 ## Building with HTTPS support via OpenSSL
 
@@ -35,6 +38,7 @@ If you want to generated curl binary to have HTTPS support via OpenSSL (Apache-s
 - **Dependencies:** libssl
 - **Total binary size:** ~2.1MB (~900KB for libcurl.a, ~1.2MB for libssl.a)
 
+---
 
 ## Building with HTTPS support via GnuTLS
 
@@ -46,6 +50,7 @@ If you want to generated curl binary to have HTTPS support via GnuTLS (LGPL lice
 - **Dependencies:** libgnutls, libgcrypt, libgpg-error
 - **Total binary size:** ~8.7MB (~900KB for libcurl.a, ~5.1MB for libgnutls.a, ~2.7MB for libgcrypt.a, ~40K for libgpg-error.a)
 
+---
 
 ## Optimizing for space on your apps
 
