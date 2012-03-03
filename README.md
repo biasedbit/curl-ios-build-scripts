@@ -78,6 +78,7 @@ When you're about to build the final release (to submit to the app store), you s
 > **ProTip™**  
 > Use different build targets, and include different variations of the above files in each of them so this process is automatic.
 
+---
 
 ## Acknowledgments
 
