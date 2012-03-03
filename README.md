@@ -33,7 +33,7 @@ You can find the build scripts for curl without HTTPS support on `without-https/
 
 ## Building with HTTPS support via OpenSSL
 
-If you want to generated curl binary to have HTTPS support via OpenSSL (Apache-style license), use the build scripts at `with-https-openssl/` folder.
+If you want the generated curl binary to have HTTPS support via OpenSSL (Apache-style license), use the build scripts at `with-https-openssl/` folder.
 
 - **Dependencies:** libssl
 - **Total binary size:** ~2.1MB (~900KB for libcurl.a, ~1.2MB for libssl.a)
@@ -42,13 +42,24 @@ If you want to generated curl binary to have HTTPS support via OpenSSL (Apache-s
 
 ## Building with HTTPS support via GnuTLS
 
-If you want to generated curl binary to have HTTPS support via GnuTLS (LGPL license), use the build scripts at `with-https-openssl/` folder.
+If you want the generated curl binary to have HTTPS support via GnuTLS (LGPL license), use the build scripts at `with-https-openssl/` folder.
 
 > **Note**  
 > These scripts use GnuTLS 2.* rather than 3.*, since 3.* depends on libnettle which in turn depends on libgmp and I couldn't build libgmp for armvX
 
 - **Dependencies:** libgnutls, libgcrypt, libgpg-error
 - **Total binary size:** ~8.7MB (~900KB for libcurl.a, ~5.1MB for libgnutls.a, ~2.7MB for libgcrypt.a, ~40K for libgpg-error.a)
+
+---
+
+## Using on your project
+
+After you've compiled the project, all you need to do is include the generated *.a files (either on `lib/`, `lib-i386/` or `lib-no-i386/`, depending on which you want to use) and the *.h files at `include/`.
+
+When you add the files to the Xcode project, Xcode will automatically add the *.a files to the link build stage, i.e. you just need to add the *.a and *.h files to your project and it'll all work.
+
+> **Note**  
+> The directories above are relative to the directory of the build branch you chose: `without-https`, `with-https-openssl` or `with-https-gnutls`
 
 ---
 
