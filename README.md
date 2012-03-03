@@ -65,4 +65,4 @@ When you're about to build the final release (to submit to the app store), you s
 
 ## Acknowledgments
 
-These scripts are based on the excellent work from (x2on)[https://github.com/x2on], with some help from (Bob)[http://stackoverflow.com/questions/9039554/using-libcurl-on-ios-5-as-an-alternative-to-nsurlconnection/9528936#9528936].
+These scripts are based on the excellent work of (Felix Schulze (x2on))[https://github.com/x2on], with some help from (Bob)[http://stackoverflow.com/questions/9039554/using-libcurl-on-ios-5-as-an-alternative-to-nsurlconnection/9528936#9528936].
