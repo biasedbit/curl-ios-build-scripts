@@ -56,7 +56,7 @@ If you want the generated curl binary to have HTTPS support via GnuTLS (LGPL lic
 
 After you've compiled the project, all you need to do is include the generated *.a files (either on `lib/`, `lib-i386/` or `lib-no-i386/`, depending on which you want to use) and the *.h files at `include/`.
 
-When you add the files to the Xcode project, Xcode will automatically add the *.a files to the link build stage, i.e. you just need to add the *.a and *.h files to your project and it'll all work.
+When you add the files to the Xcode project, Xcode will automatically add the library files to the link build stage, i.e. you just need to add the *.a and *.h files to your project and it'll all work.
 
 > **Note**  
 > The directories above are relative to the directory of the build branch you chose: `without-https`, `with-https-openssl` or `with-https-gnutls`
@@ -73,7 +73,7 @@ The scripts generate 3 kinds of binaries:
 
 For development on iOS, the first one is recommended - allows you to run the app on both the simulator and the physical devices.
 
-When you're about to build the final release (to submit to the app store), you should use the third one - 
+When you're about to build the final release (to submit to the app store), you should use the third one, as it is slightly smaller in size.
 
 > **ProTip™**  
 > Use different build targets, and include different variations of the above files in each of them so this process is automatic.
@@ -81,4 +81,4 @@ When you're about to build the final release (to submit to the app store), you s
 
 ## Acknowledgments
 
-These scripts are based on the excellent work of (Felix Schulze (x2on))[https://github.com/x2on], with some help from (Bob)[http://stackoverflow.com/questions/9039554/using-libcurl-on-ios-5-as-an-alternative-to-nsurlconnection/9528936#9528936].
+These scripts are based on the excellent work of [Felix Schulze (x2on)](https://github.com/x2on), with some help from [Bob](http://stackoverflow.com/questions/9039554/using-libcurl-on-ios-5-as-an-alternative-to-nsurlconnection/9528936#9528936).
