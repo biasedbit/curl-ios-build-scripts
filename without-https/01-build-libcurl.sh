@@ -5,7 +5,7 @@ LIBNAME="libcurl"
 LIBDOWNLOAD="http://curl.haxx.se/download/curl-7.24.0.tar.gz"
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"
 
-SDK="5.0"
+SDK="5.1"
 
 # Enabled/disabled protocols (the fewer, the smaller the final binary size)
 export PROTOCOLS="--enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps"

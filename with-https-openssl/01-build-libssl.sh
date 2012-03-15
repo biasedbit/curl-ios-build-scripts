@@ -5,7 +5,7 @@ LIBNAME="libssl"
 LIBDOWNLOAD="http://www.openssl.org/source/openssl-${VERSION}.tar.gz"
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"
 
-SDK="5.0"
+SDK="5.1"
 CONFIGURE_FLAGS=""
 
 DIR=`pwd`

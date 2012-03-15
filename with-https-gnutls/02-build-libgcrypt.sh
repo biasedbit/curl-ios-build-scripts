@@ -7,7 +7,7 @@ LIBNAME="libgcrypt"
 LIBDOWNLOAD="ftp://ftp.gnupg.org/gcrypt/libgcrypt/libgcrypt-${VERSION}.tar.gz"
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"
 
-SDK="5.0"
+SDK="5.1"
 CONFIGURE_FLAGS=""
 
 DIR=`pwd`
@@ -47,7 +47,7 @@ do
 
     # Ensure precedent lib is available for this architecture
     if [ -f "${DIR}/bin/${PRECEDENT_LIBNAME}-${PRECEDENT_VERSION}/${PLATFORM}${SDK}-${ARCH}/lib/${PRECEDENT_LIBNAME}.a" ];
-    then 
+    then
         echo "Using ${PRECEDENT_LIBNAME} ${PRECEDENT_VERSION} (${ARCH})..."
     else
         echo "Please build ${PRECEDENT_LIBNAME} ${PRECEDENT_VERSION} for ${ARCH} first"
