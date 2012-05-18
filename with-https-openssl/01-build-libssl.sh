@@ -57,7 +57,9 @@ do
 
     cd "${DIR}/src/${LIBNAME}-${VERSION}"
 
-    export DEVROOT="/Developer/Platforms/${PLATFORM}.platform/Developer"
+    # pre Xcode 4.3 DEVROOT
+    # export DEVROOT="/Developer/Platforms/${PLATFORM}.platform/Developer"
+    export DEVROOT="/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer"
     export SDKROOT="${DEVROOT}/SDKs/${PLATFORM}${SDK}.sdk"
     export CC="${DEVROOT}/usr/bin/llvm-gcc-4.2 -arch ${ARCH} -isysroot ${SDKROOT}"
     export LD="${DEVROOT}/usr/bin/ld -arch ${ARCH} -isysroot ${SDKROOT}"

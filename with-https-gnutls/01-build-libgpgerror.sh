@@ -5,7 +5,7 @@ LIBNAME="libgpg-error"
 LIBDOWNLOAD="ftp://ftp.gnupg.org/gcrypt/libgpg-error/libgpg-error-${VERSION}.tar.gz"
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"
 
-SDK="5.0"
+SDK="5.1"
 CONFIGURE_FLAGS=""
 
 DIR=`pwd`
@@ -49,7 +49,9 @@ do
 
     cd "${DIR}/src/${LIBNAME}-${VERSION}"
 
-    export DEVROOT="/Developer/Platforms/${PLATFORM}.platform/Developer"
+    # pre Xcode 4.3 DEVROOT
+    # export DEVROOT="/Developer/Platforms/${PLATFORM}.platform/Developer"
+    export DEVROOT="/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer"
     export SDKROOT="${DEVROOT}/SDKs/${PLATFORM}${SDK}.sdk"
     export CC="${DEVROOT}/usr/bin/llvm-gcc-4.2"
     export LD="${DEVROOT}/usr/bin/ld"

@@ -1,8 +1,8 @@
 #!/bin/bash
 
-VERSION="7.24.0"
+VERSION="7.25.0"
 LIBNAME="libcurl"
-LIBDOWNLOAD="http://curl.haxx.se/download/curl-7.24.0.tar.gz"
+LIBDOWNLOAD="http://curl.haxx.se/download/curl-${VERSION}.tar.gz"
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"
 
 SDK="5.1"
@@ -60,7 +60,9 @@ do
 
     cd "${DIR}/src/${LIBNAME}-${VERSION}"
 
-    export DEVROOT="/Developer/Platforms/${PLATFORM}.platform/Developer"
+    # pre Xcode 4.3 DEVROOT
+    # export DEVROOT="/Developer/Platforms/${PLATFORM}.platform/Developer"
+    export DEVROOT="/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer"
     export SDKROOT="${DEVROOT}/SDKs/${PLATFORM}${SDK}.sdk"
     export CC="${DEVROOT}/usr/bin/llvm-gcc-4.2"
     export LD="${DEVROOT}/usr/bin/ld"
