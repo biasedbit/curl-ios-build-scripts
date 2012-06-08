@@ -86,7 +86,7 @@ do
     export CXXFLAGS="-arch ${ARCH} -pipe -no-cpp-precomp -isysroot ${SDKROOT} -I${DIR}/include"
 
     ./configure --host=${ARCH}-apple-darwin --disable-shared --enable-static --with-libgcrypt ${CONFIGURE_FLAGS} \
-                --with-gnutls="${DIR}/bin/libgnutls-${LIBGNUTLS_VERSION}/${PLATFORM}${SDK}-${ARCH}" \
+                --with-gnutls="${DIR}/bin/${PRECEDENT_LIBNAME}-${PRECEDENT_VERSION}/${PLATFORM}${SDK}-${ARCH}" \
                 --prefix="${DIR}/bin/${LIBNAME}-${VERSION}/${PLATFORM}${SDK}-${ARCH}" >> "${LOG}" 2>&1
 
     make >> "${LOG}" 2>&1
