@@ -1,7 +1,7 @@
 #!/bin/bash
 
-VERSION="7.25.0"
-PRECEDENT_VERSION="1.0.0g"
+VERSION="7.26.0"
+PRECEDENT_VERSION="1.0.0j"
 PRECEDENT_LIBNAME="libssl"
 LIBNAME="libcurl"
 LIBDOWNLOAD="http://curl.haxx.se/download/curl-${VERSION}.tar.gz"

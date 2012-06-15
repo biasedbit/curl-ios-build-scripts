@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="1.0.0g"
+VERSION="1.0.0j"
 LIBNAME="libssl"
 LIBDOWNLOAD="http://www.openssl.org/source/openssl-${VERSION}.tar.gz"
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"

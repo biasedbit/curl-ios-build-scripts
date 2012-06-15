@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="7.25.0"
+VERSION="7.26.0"
 LIBNAME="libcurl"
 LIBDOWNLOAD="http://curl.haxx.se/download/curl-${VERSION}.tar.gz"
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"
