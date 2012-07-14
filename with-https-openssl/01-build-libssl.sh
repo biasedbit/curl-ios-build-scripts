@@ -83,8 +83,6 @@ LIBS="${LIBNAME} libcrypto"
 # Build for all archs
 for LIB in ${LIBS}
 do
-    echo " ---------------> ${LIB} (${LIBS})"
-
     lipo -create "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneSimulator${SDK}-i386/lib/${LIB}.a" \
                  "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneOS${SDK}-armv7/lib/${LIB}.a" \
          -output "${DIR}/lib/${LIB}.a"
