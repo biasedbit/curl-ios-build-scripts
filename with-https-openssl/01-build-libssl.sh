@@ -1,6 +1,6 @@
 #!/bin/bash
 
-VERSION="1.0.0j"
+VERSION="1.0.1c"
 LIBNAME="libssl"
 LIBDOWNLOAD="http://www.openssl.org/source/openssl-${VERSION}.tar.gz"
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"
@@ -9,27 +9,26 @@ SDK="5.1"
 CONFIGURE_FLAGS=""
 
 DIR=`pwd`
-ARCHS="i386 armv6 armv7"
+XCODE=$(xcode-select --print-path)
+ARCHS="i386 armv7"
 
 
 # Download or use existing tar.gz
-set -e
 if [ ! -e ${ARCHIVE} ]; then
-    echo "Downloading ${ARCHIVE}"
-    curl -o ${ARCHIVE} ${LIBDOWNLOAD}
     echo ""
+    echo "* Downloading ${ARCHIVE}"
+    echo ""
+    curl -o ${ARCHIVE} ${LIBDOWNLOAD}
 else
-    echo "Using ${ARCHIVE}"
+    echo ""
+    echo "* Using ${ARCHIVE}"
 fi
 
 
 # Create out dirs
 mkdir -p "${DIR}/bin"
 mkdir -p "${DIR}/lib"
-mkdir -p "${DIR}/lib-i386"
-mkdir -p "${DIR}/lib-no-i386"
 mkdir -p "${DIR}/src"
-mkdir -p "${DIR}/log"
 
 
 # Build for all archs
@@ -41,7 +40,8 @@ do
     else
         PLATFORM="iPhoneOS"
     fi
-    echo "Building ${LIBNAME} ${VERSION} for ${PLATFORM} ${SDK} ${ARCH}..."
+    echo ""
+    echo "* Building ${LIBNAME} ${VERSION} for ${PLATFORM} ${SDK} ${ARCH}..."
     tar zxf ${ARCHIVE} -C "${DIR}/src"
     rm -rf "${DIR}/src/${LIBNAME}-${VERSION}"
     mv -f "${DIR}/src/openssl-${VERSION}" "${DIR}/src/${LIBNAME}-${VERSION}"
@@ -57,10 +57,8 @@ do
 
     cd "${DIR}/src/${LIBNAME}-${VERSION}"
 
-    # pre Xcode 4.3 DEVROOT
-    # export DEVROOT="/Developer/Platforms/${PLATFORM}.platform/Developer"
-    export DEVROOT="/Applications/Xcode.app/Contents/Developer/Platforms/${PLATFORM}.platform/Developer"
-    export SDKROOT="${DEVROOT}/SDKs/${PLATFORM}${SDK}.sdk"
+    DEVROOT="${XCODE}/Platforms/${PLATFORM}.platform/Developer"
+    SDKROOT="${DEVROOT}/SDKs/${PLATFORM}${SDK}.sdk"
     export CC="${DEVROOT}/usr/bin/llvm-gcc-4.2 -arch ${ARCH} -isysroot ${SDKROOT}"
     export LD="${DEVROOT}/usr/bin/ld -arch ${ARCH} -isysroot ${SDKROOT}"
     export AR="${DEVROOT}/usr/bin/ar"
@@ -69,34 +67,40 @@ do
     export RANLIB="${DEVROOT}/usr/bin/ranlib"
 
     ./configure BSD-generic32 no-shared ${CONFIGURE_FLAGS} \
-                --openssldir="${DIR}/bin/${LIBNAME}-${VERSION}/${PLATFORM}${SDK}-${ARCH}" >> "${LOG}" 2>&1
+                --openssldir="${DIR}/bin/${LIBNAME}-${VERSION}/${PLATFORM}${SDK}-${ARCH}"
 
-    make >> "${LOG}" 2>&1
-    make install >> "${LOG}" 2>&1
+    make
+    make install
     cd ${DIR}
     rm -rf "${DIR}/src/${LIBNAME}-${VERSION}"
 done
 
 
 # Create a single .a file for all architectures
-echo "Creating binaries for ${LIBNAME}..."
-lipo -create "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneSimulator${SDK}-i386/lib/${LIBNAME}.a" \
-             "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneOS${SDK}-armv6/lib/${LIBNAME}.a" \
-             "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneOS${SDK}-armv7/lib/${LIBNAME}.a" \
-     -output "${DIR}/lib/${LIBNAME}.a"
+echo ""
+echo "* Creating binaries for ${LIBNAME}..."
+LIBS="${LIBNAME} libcrypto"
+# Build for all archs
+for LIB in ${LIBS}
+do
+    echo " ---------------> ${LIB} (${LIBS})"
 
-# Create a single .a file for all arm architectures
-lipo -create "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneOS${SDK}-armv6/lib/${LIBNAME}.a" \
-             "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneOS${SDK}-armv7/lib/${LIBNAME}.a" \
-     -output "${DIR}/lib-no-i386/${LIBNAME}.a"
+    lipo -create "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneSimulator${SDK}-i386/lib/${LIB}.a" \
+                 "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneOS${SDK}-armv7/lib/${LIB}.a" \
+         -output "${DIR}/lib/${LIB}.a"
 
-# Create a single .a file for i386
-lipo -create "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneSimulator${SDK}-i386/lib/${LIBNAME}.a" \
-     -output "${DIR}/lib-i386/${LIBNAME}.a"
+    # Create a single .a file for all arm architectures
+    lipo -create "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneOS${SDK}-armv7/lib/${LIB}.a" \
+         -output "${DIR}/lib/${LIB}-armv7.a"
+
+    # Create a single .a file for i386
+    lipo -create "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneSimulator${SDK}-i386/lib/${LIB}.a" \
+         -output "${DIR}/lib/${LIB}-i386.a"
+done
 
 
 # Copy the header files to include
-mkdir -p "${DIR}/include/${LIBNAME}"
+mkdir -p "${DIR}/include/"
 FIRST_ARCH="${ARCHS%% *}"
 if [ "${FIRST_ARCH}" == "i386" ];
 then
@@ -105,6 +109,7 @@ else
     PLATFORM="iPhoneOS"
 fi
 cp -R "${DIR}/bin/${LIBNAME}-${VERSION}/${PLATFORM}${SDK}-${FIRST_ARCH}/include/" \
-      "${DIR}/include/${LIBNAME}/"
+      "${DIR}/include/"
 
-echo "Finished; ${LIBNAME} binary created for archs: ${ARCHS}"
+echo ""
+echo "* Finished; ${LIBNAME} binary created for archs: ${ARCHS}"

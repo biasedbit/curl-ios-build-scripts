@@ -15,17 +15,19 @@ PROTOCOLS="--enable-http --disable-rtsp --disable-ftp --disable-file --disable-l
 CONFIGURE_FLAGS="--without-ssl --without-libssh2 --without-ca-bundle ${PROTOCOLS}"
 
 DIR=`pwd`
+XCODE=$(xcode-select --print-path)
 ARCHS="i386 armv7"
 
 
 # Download or use existing tar.gz
-set -e
 if [ ! -e ${ARCHIVE} ]; then
-    echo "Downloading ${ARCHIVE}"
-    curl -o ${ARCHIVE} ${LIBDOWNLOAD}
     echo ""
+    echo "* Downloading ${ARCHIVE}"
+    echo ""
+    curl -o ${ARCHIVE} ${LIBDOWNLOAD}
 else
-    echo "Using ${ARCHIVE}"
+    echo ""
+    echo "* Using ${ARCHIVE}"
 fi
 
 
@@ -99,7 +101,7 @@ lipo -create "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneSimulator${SDK}-i386/lib/${
 
 
 # Copy the header files to include
-mkdir -p "${DIR}/include/${LIBNAME}"
+mkdir -p "${DIR}/include/"
 FIRST_ARCH="${ARCHS%% *}"
 if [ "${FIRST_ARCH}" == "i386" ];
 then
@@ -108,7 +110,7 @@ else
     PLATFORM="iPhoneOS"
 fi
 cp -R "${DIR}/bin/${LIBNAME}-${VERSION}/${PLATFORM}${SDK}-${FIRST_ARCH}/include/" \
-      "${DIR}/include/${LIBNAME}/"
+      "${DIR}/include/"
 
 echo ""
 echo "* Finished; ${LIBNAME} binary created for archs: ${ARCHS}"
