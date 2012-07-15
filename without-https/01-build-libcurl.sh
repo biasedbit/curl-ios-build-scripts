@@ -84,9 +84,10 @@ do
 done
 
 
-# Create a single .a file for all architectures
 echo ""
 echo "* Creating binaries for ${LIBNAME}..."
+
+# Create a single .a file for all architectures
 lipo -create "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneSimulator${SDK}-i386/lib/${LIBNAME}.a" \
              "${DIR}/bin/${LIBNAME}-${VERSION}/iPhoneOS${SDK}-armv7/lib/${LIBNAME}.a" \
      -output "${DIR}/lib/${LIBNAME}.a"

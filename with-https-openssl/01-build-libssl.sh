@@ -40,8 +40,10 @@ do
     else
         PLATFORM="iPhoneOS"
     fi
+
     echo ""
     echo "* Building ${LIBNAME} ${VERSION} for ${PLATFORM} ${SDK} ${ARCH}..."
+
     tar zxf ${ARCHIVE} -C "${DIR}/src"
     rm -rf "${DIR}/src/${LIBNAME}-${VERSION}"
     mv -f "${DIR}/src/openssl-${VERSION}" "${DIR}/src/${LIBNAME}-${VERSION}"
@@ -53,7 +55,6 @@ do
     fi
 
     mkdir -p "${DIR}/bin/${LIBNAME}-${VERSION}/${PLATFORM}${SDK}-${ARCH}"
-    LOG="${DIR}/log/${LIBNAME}-${VERSION}-${PLATFORM}${SDK}-${ARCH}.log"
 
     cd "${DIR}/src/${LIBNAME}-${VERSION}"
 
@@ -76,9 +77,10 @@ do
 done
 
 
-# Create a single .a file for all architectures
 echo ""
 echo "* Creating binaries for ${LIBNAME}..."
+
+# Create a single .a file for all architectures
 LIBS="${LIBNAME} libcrypto"
 # Build for all archs
 for LIB in ${LIBS}

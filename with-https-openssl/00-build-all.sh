@@ -1,4 +1,13 @@
 #!/bin/sh
-sh 01-build-libssl.sh && \
-sh 02-build-libcurl.sh && \
-rm -rf bin src log
+SCRIPTS="01-build-libssl.sh 02-build-libcurl.sh"
+
+for SCRIPT in ${SCRIPTS}
+do
+    sh ${SCRIPT}
+
+    rc=$?
+    if [[ $rc != 0 ]] ; then
+        echo "! Error while running script ${SCRIPT}; aborted."
+        exit $rc
+    fi
+done
