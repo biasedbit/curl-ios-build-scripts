@@ -31,24 +31,21 @@ You can find the build scripts for curl without HTTPS support on `without-https/
 
 ---
 
+## Building with HTTPS support via nativ iOS/Mac (darwin ssl) **BETA** (it's still unstable in curl [nightly build])
+
+If you want the generated curl binary to have HTTPS support via nativ iOS/Mac ssl implementation (darwin ssl), use the build scripts at `with-https-darwinssl/` folder.
+
+- **Dependencies:** NOTHING!
+- **Total binary size:** ~900KB (~900KB for libcurl.a)
+
+---
+
 ## Building with HTTPS support via OpenSSL
 
 If you want the generated curl binary to have HTTPS support via OpenSSL (Apache-style license), use the build scripts at `with-https-openssl/` folder.
 
 - **Dependencies:** libssl
 - **Total binary size:** ~2.1MB (~900KB for libcurl.a, ~1.2MB for libssl.a)
-
----
-
-## Building with HTTPS support via GnuTLS
-
-If you want the generated curl binary to have HTTPS support via GnuTLS (LGPL license), use the build scripts at `with-https-openssl/` folder.
-
-> **Note**  
-> These scripts use GnuTLS 2.* rather than 3.*, since 3.* depends on libnettle which in turn depends on libgmp and I couldn't build libgmp for armvX
-
-- **Dependencies:** libgnutls, libgcrypt, libgpg-error
-- **Total binary size:** ~8.7MB (~900KB for libcurl.a, ~5.1MB for libgnutls.a, ~2.7MB for libgcrypt.a, ~40K for libgpg-error.a)
 
 ---
 
