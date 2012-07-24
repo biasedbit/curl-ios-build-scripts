@@ -1,15 +1,12 @@
 #!/bin/bash
 
 VERSION="7.27.0-20120723"
-PRECEDENT_VERSION="1.0.1c"
-PRECEDENT_LIBNAME="libssl"
 LIBNAME="libcurl"
 LIBDOWNLOAD="http://curl.haxx.se/snapshots/curl-${VERSION}.tar.gz"
 
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"
 
 SDK="5.1"
-
 
 # Enabled/disabled protocols (the fewer, the smaller the final binary size)
 PROTOCOLS="--enable-http --disable-rtsp --disable-ftp --disable-file --disable-ldap --disable-ldaps \
@@ -20,10 +17,6 @@ CONFIGURE_FLAGS="--without-libssh2 --without-ca-bundle ${PROTOCOLS}"
 
 DIR=`pwd`
 XCODE=$(xcode-select --print-path)
-
-#overwrite xcode var in case of installed Developer Preview
-#HACK!
-XCODE="/Applications/Xcode.app/Contents/Developer"
 
 ARCHS="i386 armv7"
 
@@ -91,7 +84,6 @@ do
     make install
     cd ${DIR}
     rm -rf "${DIR}/src/${LIBNAME}-${VERSION}"
-
 done
 
 
@@ -125,4 +117,3 @@ cp -R "${DIR}/bin/${LIBNAME}-${VERSION}/${PLATFORM}${SDK}-${FIRST_ARCH}/include/
 
 echo ""
 echo "* Finished; ${LIBNAME} binary created for archs: ${ARCHS}"
-
