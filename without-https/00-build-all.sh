@@ -1,5 +1,5 @@
 #!/bin/sh
-SCRIPT="01-build-libcurl.sh"
+SCRIPTS="01-build-libcurl2.sh"
 
 for SCRIPT in ${SCRIPTS}
 do
