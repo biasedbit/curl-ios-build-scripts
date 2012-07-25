@@ -49,7 +49,7 @@ do
     fi
 
     echo ""
-    echo "* Building ${LIBNAME} ${VERSION} for ${PLATFORM} (${ARCH})..."
+    echo "* Building ${LIBNAME} ${VERSION} for ${PLATFORM} ${SDK_VERSION} (${ARCH})..."
 
     # Expand source code, prepare output directory and set log
     tar zxf ${ARCHIVE} -C "${DIR}/src"
