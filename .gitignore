@@ -1,9 +1,6 @@
 .DS_Store
-*/bin
-*/src
-*/log
-*/include
-*/lib
-*/lib-i386
-*/lib-no-i386
-*/*.tar.*
+bin
+src
+include
+lib
+*.tar.*
