@@ -1,8 +1,8 @@
 #!/bin/bash
 
-VERSION="7.27.0-20120723"
+VERSION="7.27.0"
 LIBNAME="libcurl"
-LIBDOWNLOAD="http://curl.haxx.se/snapshots/curl-${VERSION}.tar.gz"
+LIBDOWNLOAD="http://curl.haxx.se/download/curl-${VERSION}.tar.gz"
 ARCHIVE="${LIBNAME}-${VERSION}.tar.gz"
 
 # Enabled/disabled protocols (the fewer, the smaller the final binary size)
