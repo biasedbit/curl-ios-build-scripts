@@ -42,7 +42,7 @@ module CurlBuilder
         parser.separator 'Specific options:'
 
         parser.on('--libcurl-version VERSION',
-                  'Use specific libcurl version',
+                  "Use specific libcurl version or 'master' to download latest from github",
                   "  Defaults to #{param(setup[:libcurl_version])}") do |version|
           setup[:libcurl_version] = version
         end

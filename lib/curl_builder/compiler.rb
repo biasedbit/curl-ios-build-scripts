@@ -46,6 +46,7 @@ module CurlBuilder
 
       FileUtils.mkdir_p output_dir_for architecture
 
+      ensure_configure_script
       # Bail out and signal failure to avoid passing this architecture to the Packer
       return false unless configure architecture, tools, flags
 
@@ -91,6 +92,16 @@ module CurlBuilder
 
     def expand_env_vars(env_vars)
       env_vars.collect { |key, value| "#{key.to_s.upcase}=\"#{value}\"" }.join(' ')
+    end
+
+    def ensure_configure_script
+      Dir.chdir(expanded_archive_dir) do
+        return if File.exists?("configure")
+
+        debug { "configure file not found; creating via ./buildconf" }
+        buildconf = "./buildconf"
+        setup(:verbose) ? system(buildconf) : `#{buildconf} &>/dev/null`
+      end
     end
 
     def configure(architecture, tools, compilation_flags)
