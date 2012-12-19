@@ -58,7 +58,7 @@ module CurlBuilder
         parser.on('--enable-protocols A,B,C',
                   Array,
                   'Enables a list of protocols',
-                  "  Defaults to #{param(protocols.select { |k, enabled| enabled }.keys.join(', '))}") do |enabled|
+                  "  Defaults to #{param(Hash[protocols.select { |k, enabled| enabled }].keys.join(', '))}") do |enabled|
           enabled.each do |p|
             protocols[p] = true
           end
@@ -67,7 +67,7 @@ module CurlBuilder
         parser.on('--disable-protocols A,B,C',
                   Array,
                   'Disables a list of protocols',
-                  "  Defaults to #{param(protocols.select { |k, enabled| !enabled }.keys.join(', '))}") do |enabled|
+                  "  Defaults to #{param(Hash[protocols.select { |k, enabled| !enabled }].keys.join(', '))}") do |enabled|
           enabled.each do |p|
             protocols[p] = false
           end
@@ -132,7 +132,7 @@ module CurlBuilder
 
       parser.parse(args)
 
-      {setup: setup, protocols: protocols, flags: flags}
+      { :setup => setup, :protocols => protocols, :flags => flags}
     end
   end
 end

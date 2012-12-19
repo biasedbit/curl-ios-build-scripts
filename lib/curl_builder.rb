@@ -4,17 +4,17 @@ require 'fileutils'
 require 'open3'
 
 
-require_relative 'curl_builder/errors'
-require_relative 'curl_builder/paths'
-require_relative 'curl_builder/logging'
-require_relative 'curl_builder/configurable_step'
+require 'curl_builder/errors'
+require 'curl_builder/paths'
+require 'curl_builder/logging'
+require 'curl_builder/configurable_step'
 
 # Steps
-require_relative 'curl_builder/parser'
-require_relative 'curl_builder/preparer'
-require_relative 'curl_builder/compiler'
-require_relative 'curl_builder/packer'
-require_relative 'curl_builder/cleaner'
+require 'curl_builder/parser'
+require 'curl_builder/preparer'
+require 'curl_builder/compiler'
+require 'curl_builder/packer'
+require 'curl_builder/cleaner'
 
 
 # Phases
@@ -57,21 +57,21 @@ module CurlBuilder
   }
 
   DEFAULT_SETUP = {
-    log_level:          'info', # debug, info, warn, error
-    verbose:            false,
-    sdk_version:        '6.0',
-    libcurl_version:    '7.27.0',
-    architectures:      %w(i386 armv7 armv7s),
-    xcode_home:         '/Applications/Xcode.app/Contents/Developer',
-    run_on_dir:         Dir::pwd,
-    work_dir:           'build',
-    result_dir:         'curl',
-    clean_and_exit:     false,
-    cleanup:            true,
+    :log_level =>       'info', # debug, info, warn, error
+    :verbose =>         false,
+    :sdk_version =>     '6.0',
+    :libcurl_version => '7.27.0',
+    :architectures =>   %w(i386 armv7 armv7s),
+    :xcode_home =>      '/Applications/Xcode.app/Contents/Developer',
+    :run_on_dir =>      Dir::pwd,
+    :work_dir =>        'build',
+    :result_dir =>      'curl',
+    :clean_and_exit =>  false,
+    :cleanup =>         true,
   }
 
   VALID_ARGS = {
-    architectures: %w(i386 armv6 armv7 armv7s)
+    :architectures => %w(i386 armv6 armv7 armv7s)
   }
 
 

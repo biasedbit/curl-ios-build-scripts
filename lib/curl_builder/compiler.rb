@@ -65,12 +65,12 @@ module CurlBuilder
 
     def tools_for(platform)
       {
-        cc:     find_tool('llvm-gcc-4.2', platform),
-        ld:     find_tool('ld', platform),
-        ar:     find_tool('ar', platform),
-        as:     find_tool('as', platform),
-        nm:     find_tool('nm', platform),
-        ranlib: find_tool('ranlib', platform)
+        :cc =>     find_tool('llvm-gcc-4.2', platform),
+        :ld =>     find_tool('ld', platform),
+        :ar =>     find_tool('ar', platform),
+        :as =>     find_tool('as', platform),
+        :nm =>     find_tool('nm', platform),
+        :ranlib => find_tool('ranlib', platform)
       }
     end
 
@@ -85,8 +85,8 @@ module CurlBuilder
       sdk = "#{setup(:xcode_home)}/Platforms/#{platform}.platform/Developer/SDKs/#{platform}#{setup(:sdk_version)}.sdk"
 
       {
-        ldflags: "-arch #{architecture} -pipe -isysroot #{sdk}",
-        cflags:  "-arch #{architecture} -pipe -isysroot #{sdk}"
+        :ldflags => "-arch #{architecture} -pipe -isysroot #{sdk}",
+        :cflags =>  "-arch #{architecture} -pipe -isysroot #{sdk}"
       }
     end
 
