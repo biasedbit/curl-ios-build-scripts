@@ -60,7 +60,7 @@ module CurlBuilder
     :log_level =>       'info', # debug, info, warn, error
     :verbose =>         false,
     :sdk_version =>     '6.0',
-    :libcurl_version => '7.27.0',
+    :libcurl_version => '7.28.1',
     :architectures =>   %w(i386 armv7 armv7s),
     :xcode_home =>      '/Applications/Xcode.app/Contents/Developer',
     :run_on_dir =>      Dir::pwd,
@@ -70,9 +70,7 @@ module CurlBuilder
     :cleanup =>         true,
   }
 
-  VALID_ARGS = {
-    :architectures => %w(i386 armv6 armv7 armv7s)
-  }
+  VALID_ARGS = { :architectures => %w(i386 armv7 armv7s) }
 
 
   attr_accessor :logger

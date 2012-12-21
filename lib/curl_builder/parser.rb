@@ -73,7 +73,7 @@ module CurlBuilder
           end
         end
 
-        parser.on('--sdk-version',
+        parser.on('--sdk-version SDK',
                   'Use specific SDK version',
                   "  Defaults to #{param(setup[:sdk_version])}") do |sdk|
           setup[:sdk_version] = sdk
