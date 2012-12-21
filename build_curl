@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
-require_relative 'lib/curl_builder'
+
+$: << "lib"
+require 'curl_builder'
 
 module CurlBuilder
   class Orchestrator
@@ -12,12 +14,12 @@ module CurlBuilder
       CurlBuilder.logger.level = Logger.const_get(configuration[:setup][:log_level].upcase.to_sym)
 
       # Start building
-      Preparer.new(configuration: configuration).prepare
-      compiled_archs = Compiler.new(configuration: configuration).compile
+      Preparer.new(:configuration => configuration).prepare
+      compiled_archs = Compiler.new(:configuration => configuration).compile
       error { 'Compilation failed for all requested architectures.' } if compiled_archs.empty?
       return if compiled_archs.empty?
 
-      packed = Packer.new(configuration: configuration).pack(compiled_archs)
+      packed = Packer.new(:configuration => configuration).pack(compiled_archs)
       if packed.empty?
         error { 'Unable to pack any of the output binaries' }
         error { "To determine the cause, please run again with '#{param('--log-level debug --verbose')}'." }
@@ -29,7 +31,7 @@ module CurlBuilder
     rescue Errors::TaskError => e
       error { "Build failed, output follows:\n#{black('----')}\n#{gray(e.message)}\n#{black('----')}" }
     ensure
-      Cleaner.new(configuration: configuration).cleanup unless configuration.nil?
+      Cleaner.new(:configuration => configuration).cleanup unless configuration.nil?
     end
 
     def log_id
