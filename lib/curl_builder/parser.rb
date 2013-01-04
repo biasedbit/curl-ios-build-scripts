@@ -79,6 +79,12 @@ module CurlBuilder
           setup[:sdk_version] = sdk
         end
 
+        parser.on('--osx-sdk-version SDK',
+                  'Use specific SDK version',
+                  "  Defaults to #{param(setup[:osx_sdk_version])}") do |sdk|
+          setup[:osx_sdk_version] = sdk
+        end
+
         parser.on('--log-level LOG_LEVEL',
                   %w(debug info warn error),
                   'Log level for build process',
