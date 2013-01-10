@@ -35,7 +35,7 @@ module CurlBuilder
 
       info {
         "Building libcurl #{param(setup(:libcurl_version))} for " +
-          "#{param(platform)} #{param(sdk_version_for(platform))} (#{arch(architecture)})..."
+          "#{param(platform)} #{param(sdk_version_for(platform))} (#{architecture})..."
       }
       debug {
         "Tools:\n  #{tools.collect { |tool, path| "#{magenta(tool.to_s.upcase)}: #{param(path)}" }.join("\n  ")}"
@@ -56,20 +56,12 @@ module CurlBuilder
 
     def platform_for(architecture)
       case architecture
-      when "i386-osx"
+      when "x86_64"
         "MacOSX"
-      when "i386-sim"
+      when "i386"
          "iPhoneSimulator"
       else
         "iPhoneOS"
-      end
-    end
-
-    def arch(architecture)
-      if architecture == "i386-osx" || architecture == "i386-sim"
-         "i386"
-      else
-        architecture
       end
     end
 
@@ -110,8 +102,8 @@ module CurlBuilder
       sdk = "#{setup(:xcode_home)}/Platforms/#{platform}.platform/Developer/SDKs/#{platform}#{sdk_version}.sdk"
 
       {
-        ldflags: "-arch #{arch(architecture)} -pipe -isysroot #{sdk}",
-        cflags:  "-arch #{arch(architecture)} -pipe -isysroot #{sdk} #{min_version}"
+        ldflags: "-arch #{architecture} -pipe -isysroot #{sdk}",
+        cflags:  "-arch #{architecture} -pipe -isysroot #{sdk} #{min_version}"
       }
     end
 
@@ -137,7 +129,7 @@ module CurlBuilder
         #{expand_env_vars(tools)}
         #{expand_env_vars(compilation_flags)}
         ./configure
-        --host=#{arch(architecture)}-apple-darwin
+        --host=#{architecture}-apple-darwin
         --disable-shared
         --enable-static
         #{flags.join(' ')}
