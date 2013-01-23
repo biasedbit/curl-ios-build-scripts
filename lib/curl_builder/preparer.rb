@@ -56,7 +56,7 @@ module CurlBuilder
 
     def setup_work_directory
       # These directories are set on Paths module
-      FileUtils.mkdir_p [work_dir, download_dir, source_dir, result_lib_dir, result_include_dir]
+      FileUtils.mkdir_p [work_dir, download_dir, source_dir, result_dir]
     end
 
     def download

@@ -57,6 +57,7 @@ module CurlBuilder
   }
 
   DEFAULT_SETUP = {
+<<<<<<< HEAD
     :log_level =>       'info', # debug, info, warn, error
     :verbose =>         false,
     :sdk_version =>     '6.0',
@@ -71,7 +72,6 @@ module CurlBuilder
   }
 
   VALID_ARGS = { :architectures => %w(i386 armv7 armv7s) }
-
 
   attr_accessor :logger
 

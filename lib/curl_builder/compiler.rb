@@ -35,7 +35,7 @@ module CurlBuilder
 
       info {
         "Building libcurl #{param(setup(:libcurl_version))} for " +
-          "#{param(platform)} #{param(setup(:sdk_version))} (#{architecture})..."
+          "#{param(platform)} #{param(sdk_version_for(platform))} (#{architecture})..."
       }
       debug {
         "Tools:\n  #{tools.collect { |tool, path| "#{magenta(tool.to_s.upcase)}: #{param(path)}" }.join("\n  ")}"
@@ -56,10 +56,12 @@ module CurlBuilder
 
     def platform_for(architecture)
       case architecture
-      when 'i386'
-        'iPhoneSimulator'
+      when "x86_64"
+        "MacOSX"
+      when "i386"
+         "iPhoneSimulator"
       else
-        'iPhoneOS'
+        "iPhoneOS"
       end
     end
 
@@ -81,12 +83,32 @@ module CurlBuilder
       tool
     end
 
+    def sdk_version_for(platform)
+      if platform == "iPhoneOS" || platform == "iPhoneSimulator"
+        setup(:sdk_version)
+      else
+        setup(:osx_sdk_version)
+      end
+    end
+
     def compilation_flags_for(platform, architecture)
-      sdk = "#{setup(:xcode_home)}/Platforms/#{platform}.platform/Developer/SDKs/#{platform}#{setup(:sdk_version)}.sdk"
+      if platform == "iPhoneOS" || platform == "iPhoneSimulator"
+        min_version = "-miphoneos-version-min=5.0"
+      else
+        min_version = "-mmacosx-version-min=10.7"
+      end
+
+      sdk_version = sdk_version_for platform
+      sdk = "#{setup(:xcode_home)}/Platforms/#{platform}.platform/Developer/SDKs/#{platform}#{sdk_version}.sdk"
 
       {
+<<<<<<< HEAD
         :ldflags => "-arch #{architecture} -pipe -isysroot #{sdk}",
         :cflags =>  "-arch #{architecture} -pipe -isysroot #{sdk}"
+=======
+        ldflags: "-arch #{architecture} -pipe -isysroot #{sdk}",
+        cflags:  "-arch #{architecture} -pipe -isysroot #{sdk} #{min_version}"
+>>>>>>> master
       }
     end
 
