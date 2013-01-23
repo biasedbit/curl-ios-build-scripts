@@ -11,14 +11,14 @@ module CurlBuilder
     # Logging
 
     def log_id
-      'COMPILE'
+      "COMPILE"
     end
 
 
     # Interface
 
     def compile
-      info { "Attempting to compile for architectures: #{setup(:architectures).join(', ')}..." }
+      info { "Attempting to compile for architectures: #{setup(:architectures).join(", ")}..." }
 
       # Attempt to compile all architectures and return a list of the ones that were successful
       setup(:architectures).collect { |architecture|
@@ -67,12 +67,12 @@ module CurlBuilder
 
     def tools_for(platform)
       {
-        :cc =>     find_tool('llvm-gcc-4.2', platform),
-        :ld =>     find_tool('ld', platform),
-        :ar =>     find_tool('ar', platform),
-        :as =>     find_tool('as', platform),
-        :nm =>     find_tool('nm', platform),
-        :ranlib => find_tool('ranlib', platform)
+        :cc     => find_tool("llvm-gcc-4.2", platform),
+        :ld     => find_tool("ld", platform),
+        :ar     => find_tool("ar", platform),
+        :as     => find_tool("as", platform),
+        :nm     => find_tool("nm", platform),
+        :ranlib => find_tool("ranlib", platform)
       }
     end
 
@@ -102,18 +102,13 @@ module CurlBuilder
       sdk = "#{setup(:xcode_home)}/Platforms/#{platform}.platform/Developer/SDKs/#{platform}#{sdk_version}.sdk"
 
       {
-<<<<<<< HEAD
         :ldflags => "-arch #{architecture} -pipe -isysroot #{sdk}",
-        :cflags =>  "-arch #{architecture} -pipe -isysroot #{sdk}"
-=======
-        ldflags: "-arch #{architecture} -pipe -isysroot #{sdk}",
-        cflags:  "-arch #{architecture} -pipe -isysroot #{sdk} #{min_version}"
->>>>>>> master
+        :cflags  => "-arch #{architecture} -pipe -isysroot #{sdk} #{min_version}"
       }
     end
 
     def expand_env_vars(env_vars)
-      env_vars.collect { |key, value| "#{key.to_s.upcase}=\"#{value}\"" }.join(' ')
+      env_vars.collect { |key, value| "#{key.to_s.upcase}=\"#{value}\"" }.join(" ")
     end
 
     def ensure_configure_script
@@ -137,11 +132,11 @@ module CurlBuilder
         --host=#{architecture}-apple-darwin
         --disable-shared
         --enable-static
-        #{flags.join(' ')}
+        #{flags.join(" ")}
         --prefix="#{output_dir_for architecture}"
       }
 
-      flattened_command = configure_command.join(' ')
+      flattened_command = configure_command.join(" ")
       debug { "Running configure with command:\n#{param(flattened_command)}" }
 
       # puts configure_command
@@ -156,7 +151,7 @@ module CurlBuilder
     def make(architecture)
       debug { "Compiling..." }
       Dir.chdir(expanded_archive_dir) do
-        setup(:verbose) ? system('make && make install') : `make &>/dev/null && make install &>/dev/null`
+        setup(:verbose) ? system("make && make install") : `make &>/dev/null && make install &>/dev/null`
       end
 
       warn { "Compilation for architecture '#{param(architecture)}' failed." } unless $?.success?

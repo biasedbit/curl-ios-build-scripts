@@ -1,20 +1,27 @@
-require 'logger'
-require 'optparse'
-require 'fileutils'
-require 'open3'
+require "logger"
+require "optparse"
+require "fileutils"
+require "open3"
 
 
-require 'curl_builder/errors'
-require 'curl_builder/paths'
-require 'curl_builder/logging'
-require 'curl_builder/configurable_step'
+module Kernel
+  def require_relative(path)
+    require File.join(File.dirname(caller[0]), path.to_str)
+  end
+end
+
+
+require_relative "curl_builder/errors"
+require_relative "curl_builder/paths"
+require_relative "curl_builder/logging"
+require_relative "curl_builder/configurable_step"
 
 # Steps
-require 'curl_builder/parser'
-require 'curl_builder/preparer'
-require 'curl_builder/compiler'
-require 'curl_builder/packer'
-require 'curl_builder/cleaner'
+require_relative "curl_builder/parser"
+require_relative "curl_builder/preparer"
+require_relative "curl_builder/compiler"
+require_relative "curl_builder/packer"
+require_relative "curl_builder/cleaner"
 
 
 # Phases
@@ -31,47 +38,47 @@ module CurlBuilder
   # Defaults
 
   DEFAULT_PROTOCOLS = {
-    'http'   => true,
-    'rtsp'   => false,
-    'ftp'    => false,
-    'file'   => false,
-    'ldap'   => false,
-    'ldaps'  => false,
-    'rtsp'   => false,
-    'dict'   => false,
-    'telnet' => false,
-    'tftp'   => false,
-    'pop3'   => false,
-    'imap'   => false,
-    'smtp'   => false,
-    'gopher' => false
+    "http"   => true,
+    "rtsp"   => false,
+    "ftp"    => false,
+    "file"   => false,
+    "ldap"   => false,
+    "ldaps"  => false,
+    "rtsp"   => false,
+    "dict"   => false,
+    "telnet" => false,
+    "tftp"   => false,
+    "pop3"   => false,
+    "imap"   => false,
+    "smtp"   => false,
+    "gopher" => false
   }
 
   DEFAULT_FLAGS = {
-    'darwinssl' => true,
-    'ssl'       => false,
-    'libssh2'   => false,
-    'librtmp'   => false,
-    'libidn'    => false,
-    'ca-bundle' => false
+    "darwinssl" => true,
+    "ssl"       => false,
+    "libssh2"   => false,
+    "librtmp"   => false,
+    "libidn"    => false,
+    "ca-bundle" => false
   }
 
   DEFAULT_SETUP = {
-<<<<<<< HEAD
-    :log_level =>       'info', # debug, info, warn, error
-    :verbose =>         false,
-    :sdk_version =>     '6.0',
-    :libcurl_version => '7.28.1',
-    :architectures =>   %w(i386 armv7 armv7s),
-    :xcode_home =>      '/Applications/Xcode.app/Contents/Developer',
-    :run_on_dir =>      Dir::pwd,
-    :work_dir =>        'build',
-    :result_dir =>      'curl',
-    :clean_and_exit =>  false,
-    :cleanup =>         true,
+    :log_level       => "info", # debug, info, warn, error
+    :verbose         => false,
+    :sdk_version     => "6.0",
+    :osx_sdk_version => "10.8",
+    :libcurl_version => "7.28.1",
+    :architectures   => %w(i386 armv7 armv7s x86_64),
+    :xcode_home      => "/Applications/Xcode.app/Contents/Developer",
+    :run_on_dir      => Dir::pwd,
+    :work_dir        => "build",
+    :result_dir      => "curl",
+    :clean_and_exit  => false,
+    :cleanup         => true,
   }
 
-  VALID_ARGS = { :architectures => %w(i386 armv7 armv7s) }
+  VALID_ARGS = {:architectures => %w(i386 armv7 armv7s x86_64)}
 
   attr_accessor :logger
 
