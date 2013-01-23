@@ -26,7 +26,7 @@ module CurlBuilder
       else
         cenas = packed.collect { |k, v| "#{k} (#{v.join(", ")})" }.join(", ")
         info { "Build complete with output binaries: #{param(cenas)}" }
-        info { "Output can be found on the '#{param("curl")}'' folder" }
+        info { "Output can be found on the '#{param("curl")}' folder" }
       end
     rescue Errors::TaskError => e
       error { "Build failed, output follows:\n#{black("----")}\n#{gray(e.message)}\n#{black("----")}" }
