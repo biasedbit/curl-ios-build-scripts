@@ -11,14 +11,14 @@ module CurlBuilder
     # Logging
 
     def log_id
-      'PACKAGE'
+      "PACKAGE"
     end
 
 
     # Interface
 
     def pack(compiled_architectures)
-      info { "Packing binaries for architectures '#{param(compiled_architectures.join(' '))}'..." }
+      info { "Packing binaries for architectures '#{param(compiled_architectures.join(" "))}'..." }
 
       osx = compiled_architectures.select { |arch| arch == "x86_64" }
       ios = compiled_architectures - osx
@@ -62,16 +62,16 @@ module CurlBuilder
       return if archs.empty? || archs.nil?
 
       info {
-        "Creating binary #{archs.size > 1 ? 'with combined architectures' : 'for architecture'} " + 
-          "#{param(archs.join(', '))}..."
+        "Creating binary #{archs.size > 1 ? "with combined architectures" : "for architecture"} " + 
+          "#{param(archs.join(", "))}..."
       }
 
       binaries = archs.collect { |arch| binary_path_for arch }
 
       FileUtils.mkdir_p result_lib_dir name
 
-      `lipo -create #{binaries.join(' ')} -output #{packed_lib_path_with name} &>/dev/null`
-      warn { "Failed to pack '#{param(name)}' binary (archs: #{param(archs.join(', '))})." } unless $?.success?
+      `lipo -create #{binaries.join(" ")} -output #{packed_lib_path_with name} &>/dev/null`
+      warn { "Failed to pack '#{param(name)}' binary (archs: #{param(archs.join(", "))})." } unless $?.success?
 
       $?.success?
     end

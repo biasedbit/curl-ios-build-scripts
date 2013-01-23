@@ -14,7 +14,7 @@ module CurlBuilder
     # Logging
 
     def log_id
-      'PREPARE'
+      "PREPARE"
     end
 
 
@@ -23,19 +23,19 @@ module CurlBuilder
     def prepare
       setup_tools
 
-      info { 'Setting up work directory...' }
+      info { "Setting up work directory..." }
       setup_work_directory
 
       if archive_exists?
-        info { 'Archive already exists, expanding...' }
+        info { "Archive already exists, expanding..." }
       else
         info { "Downloading archive for libcurl version #{param(setup(:libcurl_version))}" }
         download
-        info { 'Archive downloaded, expanding...' }
+        info { "Archive downloaded, expanding..." }
       end
 
       unpack
-      info { 'Archive expanded.' }
+      info { "Archive expanded." }
     end
 
 
@@ -47,7 +47,7 @@ module CurlBuilder
             "using xcode-select to find a valid one..."
         }
         xcode_path = `xcode-select --print-path`.strip
-        raise Errors::TaskError, 'Could not find Xcode path - make sure you have Xcode installed' unless $?.success?
+        raise Errors::TaskError, "Could not find Xcode path - make sure you have Xcode installed" unless $?.success?
         configuration[:setup][:xcode_home] = xcode_path
       end
 
@@ -65,8 +65,8 @@ module CurlBuilder
       else
         download_file = "http://curl.haxx.se/download/curl-#{setup(:libcurl_version)}.tar.gz"
       end
-      # redirect output to /dev/null unless we're in verbose mode
-      command = "curl -Lo #{archive_path} #{download_file} #{setup(:verbose) ? '' : '1>&/dev/null'}"
+      # redirect output to /dev/null unless we"re in verbose mode
+      command = "curl -Lo #{archive_path} #{download_file} #{setup(:verbose) ? "" : "1>&/dev/null"}"
       output = `#{command}`
       raise Errors::TaskError, "Could not download '#{download_file}'" unless $?.success?
     end

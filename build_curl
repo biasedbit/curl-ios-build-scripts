@@ -1,5 +1,7 @@
 #!/usr/bin/env ruby
-require_relative 'lib/curl_builder'
+require_relative "lib/curl_builder"
+
+
 
 module CurlBuilder
   class Orchestrator
@@ -14,26 +16,26 @@ module CurlBuilder
       # Start building
       Preparer.new(configuration: configuration).prepare
       compiled_archs = Compiler.new(configuration: configuration).compile
-      error { 'Compilation failed for all requested architectures.' } if compiled_archs.empty?
+      error { "Compilation failed for all requested architectures." } if compiled_archs.empty?
       return if compiled_archs.empty?
 
       packed = Packer.new(configuration: configuration).pack(compiled_archs)
       if packed.empty?
-        error { 'Unable to pack any of the output binaries' }
-        error { "To determine the cause, please run again with '#{param('--log-level debug --verbose')}'." }
+        error { "Unable to pack any of the output binaries" }
+        error { "To determine the cause, please run again with '#{param("--log-level debug --verbose")}'." }
       else
-        cenas = packed.collect { |k, v| "#{k} (#{v.join(', ')})" }.join(', ')
+        cenas = packed.collect { |k, v| "#{k} (#{v.join(", ")})" }.join(", ")
         info { "Build complete with output binaries: #{param(cenas)}" }
-        info { "Output can be found on the '#{param('curl')}' folder" }
+        info { "Output can be found on the '#{param("curl")}'' folder" }
       end
     rescue Errors::TaskError => e
-      error { "Build failed, output follows:\n#{black('----')}\n#{gray(e.message)}\n#{black('----')}" }
+      error { "Build failed, output follows:\n#{black("----")}\n#{gray(e.message)}\n#{black("----")}" }
     ensure
       Cleaner.new(configuration: configuration).cleanup unless configuration.nil?
     end
 
     def log_id
-      ' BUILD '
+      " BUILD "
     end
   end
 end
