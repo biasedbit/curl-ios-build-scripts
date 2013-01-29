@@ -26,10 +26,16 @@ module CurlBuilder
       info { "Setting up work directory..." }
       setup_work_directory
 
+      if source_exists?
+        info { "Source already exists, skipping archive download & expansion..." }
+        return
+      else
+        FileUtils.mkdir_p source_dir
+      end
+
       if archive_exists?
         info { "Archive already exists, expanding..." }
       else
-        info { "Downloading archive for libcurl version #{param(setup(:libcurl_version))}" }
         download
         info { "Archive downloaded, expanding..." }
       end
@@ -56,13 +62,15 @@ module CurlBuilder
 
     def setup_work_directory
       # These directories are set on Paths module
-      FileUtils.mkdir_p [work_dir, download_dir, source_dir, result_dir]
+      FileUtils.mkdir_p [work_dir, download_dir, result_dir]
     end
 
     def download
       if setup(:libcurl_version) == "master"
+        info { "Downloading latest revision of libcurl from GitHub" }
         download_file = "https://github.com/bagder/curl/archive/master.tar.gz"
       else
+        info { "Downloading archive for libcurl version #{param(setup(:libcurl_version))}" }
         download_file = "http://curl.haxx.se/download/curl-#{setup(:libcurl_version)}.tar.gz"
       end
       # redirect output to /dev/null unless we"re in verbose mode
@@ -76,8 +84,12 @@ module CurlBuilder
       raise Errors::TaskError, "Could not unpack libcurl file: '#{output.strip}'" unless $?.success?
     end
 
+    def source_exists?
+      File.exists? source_dir
+    end
+
     def archive_exists?
-      exists = File.exists? archive_path
+      File.exists? archive_path
     end
   end
 end

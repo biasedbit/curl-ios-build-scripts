@@ -36,9 +36,9 @@ module CurlBuilder
         copy_include_dir ios.first, "ios-dev"
       end
 
-      if create_binary_for arm, "ios-distribution"
-        successful["ios-distribution"] = arm 
-        copy_include_dir arm.first, "ios-distribution"
+      if create_binary_for arm, "ios-appstore"
+        successful["ios-appstore"] = arm 
+        copy_include_dir arm.first, "ios-appstore"
       end
 
       successful
@@ -63,7 +63,7 @@ module CurlBuilder
 
       info {
         "Creating binary #{archs.size > 1 ? "with combined architectures" : "for architecture"} " + 
-          "#{param(archs.join(", "))}..."
+          "#{param(archs.join(", "))} (#{name})..."
       }
 
       binaries = archs.collect { |arch| binary_path_for arch }

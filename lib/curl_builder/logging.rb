@@ -39,11 +39,11 @@ module CurlBuilder
     def black(text); colorize(text, "30"); end
     def red(text); colorize(text, "31"); end
     def green(text); colorize(text, "32"); end
-    def yellow(text);  colorize(text, "33"); end
+    def yellow(text); colorize(text, "33"); end
     def blue(text); colorize(text, "34"); end
     def magenta(text); colorize(text, "35"); end
     def cyan(text); colorize(text, "36"); end
     def gray(text); colorize(text, "37"); end
-    def param(text); gray(text); end
+    def param(text); bold(gray(text)); end
   end
 end
