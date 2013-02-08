@@ -47,6 +47,18 @@ module CurlBuilder
           setup[:libcurl_version] = version
         end
 
+        parser.on("--[no-]debug-symbols",
+                  "Include or exclude debug symbols",
+                  "  Defaults to #{param(setup[:debug_symbols])}") do |debug_symbols|
+          setup[:debug_symbols] = debug_symbols
+        end
+
+        parser.on("--[no-]curldebug",
+                  "Use CURLDEBUG flag when building",
+                  "  Defaults to #{param(setup[:curldebug])}") do |curldebug|
+          setup[:curldebug] = curldebug
+        end
+
         parser.on("--archs X,Y,Z",
                   Array,
                   "Which architectures to compile for (i386, armv6, armv7 and/or armv7s)",
