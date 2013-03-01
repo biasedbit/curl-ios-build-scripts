@@ -66,9 +66,11 @@ module CurlBuilder
   DEFAULT_SETUP = {
     :log_level       => "info", # debug, info, warn, error
     :verbose         => false,
-    :sdk_version     => "6.0",
+    :debug_symbols   => false,
+    :curldebug       => false,
+    :sdk_version     => "6.1",
     :osx_sdk_version => "10.8",
-    :libcurl_version => "7.28.1",
+    :libcurl_version => "7.29.0",
     :architectures   => %w(i386 armv7 armv7s x86_64),
     :xcode_home      => "/Applications/Xcode.app/Contents/Developer",
     :run_on_dir      => Dir::pwd,
@@ -79,6 +81,7 @@ module CurlBuilder
   }
 
   VALID_ARGS = {:architectures => %w(i386 armv7 armv7s x86_64)}
+
 
   attr_accessor :logger
 
