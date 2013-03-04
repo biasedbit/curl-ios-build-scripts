@@ -125,6 +125,9 @@ module CurlBuilder
       flags  = CurlBuilder.build_flags(configuration[:flags])
       flags += CurlBuilder.build_protocols(configuration[:protocols])
 
+      flags << "--enable-debug" if setup(:debug_symbols)
+      flags << "--enable-curldebug" if setup(:curldebug)
+
       configure_command = %W{
         #{expand_env_vars(tools)}
         #{expand_env_vars(compilation_flags)}
