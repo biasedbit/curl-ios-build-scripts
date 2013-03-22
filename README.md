@@ -11,6 +11,9 @@ Curl version `7.27.0` and above now supports native (Darwin) SSL so the other al
 
 To list all possible options and flags, run `./build_curl --help`.
 
+> **NOTE:**  
+> These scripts require Ruby 1.9. Check out the `ruby1.8` branch if you're still running 1.8.
+
 
 ## Default configuration
 
@@ -60,6 +63,7 @@ If you build for a subset of the architectures, the packages will still be creat
 After you've compiled the project, all you need to do is include one of the generated packages (its `lib` and `include` folders) files on your project.
 
 When you add the files to the Xcode project, Xcode will automatically add the library files to the link build stage, i.e. you just need to add the `*.a` and `*.h` files to your project and it'll all work.
+
 
 ### Required frameworks
 
