@@ -67,7 +67,7 @@ module CurlBuilder
 
     def tools_for(platform)
       {
-        cc:     find_tool("llvm-gcc-4.2", platform),
+        cc:     find_tool("gcc", platform),
         ld:     find_tool("ld", platform),
         ar:     find_tool("ar", platform),
         as:     find_tool("as", platform),
