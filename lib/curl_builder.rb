@@ -61,9 +61,9 @@ module CurlBuilder
     verbose:            false,
     debug_symbols:      false,
     curldebug:          false,
-    sdk_version:        "6.1",
+    sdk_version:        "7.0",
     osx_sdk_version:    "10.8",
-    libcurl_version:    "7.31.0",
+    libcurl_version:    "7.32.0",
     architectures:      %w(i386 armv7 armv7s x86_64),
     xcode_home:         "/Applications/Xcode.app/Contents/Developer",
     run_on_dir:         Dir::pwd,
@@ -73,7 +73,7 @@ module CurlBuilder
     cleanup:            true,
   }
 
-  VALID_ARGS = {architectures: %w(i386 armv7 armv7s x86_64)}
+  VALID_ARGS = {architectures: %w(i386 armv7 armv7s arm64 x86_64)}
 
 
   attr_accessor :logger

@@ -59,7 +59,7 @@ module CurlBuilder
       when "x86_64"
         "MacOSX"
       when "i386"
-         "iPhoneSimulator"
+        "iPhoneSimulator"
       else
         "iPhoneOS"
       end
@@ -93,7 +93,8 @@ module CurlBuilder
 
     def compilation_flags_for(platform, architecture)
       if platform == "iPhoneOS" || platform == "iPhoneSimulator"
-        min_version = "-miphoneos-version-min=5.0"
+        version = architecture == "arm64" ? "6.0" : "5.0"
+        min_version = "-miphoneos-version-min=#{version}"
       else
         min_version = "-mmacosx-version-min=10.7"
       end
