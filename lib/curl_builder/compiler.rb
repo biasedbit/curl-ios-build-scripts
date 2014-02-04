@@ -129,11 +129,13 @@ module CurlBuilder
       flags << "--enable-debug" if setup(:debug_symbols)
       flags << "--enable-curldebug" if setup(:curldebug)
 
+      host = architecture == "arm64" ? "aarch64-apple-darwin" : "#{architecture}-apple-darwin"
+
       configure_command = %W{
         #{expand_env_vars(tools)}
         #{expand_env_vars(compilation_flags)}
         ./configure
-        --host=#{architecture}-apple-darwin
+        --host=#{host}
         --disable-shared
         --enable-static
         #{flags.join(" ")}
