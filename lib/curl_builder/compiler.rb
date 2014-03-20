@@ -123,6 +123,8 @@ module CurlBuilder
     end
 
     def configure(architecture, tools, compilation_flags)
+      host = (architecture != "arm64" ? architecture : "arm") << "-apple-darwin"
+
       flags  = CurlBuilder.build_flags(configuration[:flags])
       flags += CurlBuilder.build_protocols(configuration[:protocols])
 
@@ -133,7 +135,7 @@ module CurlBuilder
         #{expand_env_vars(tools)}
         #{expand_env_vars(compilation_flags)}
         ./configure
-        --host=#{architecture}-apple-darwin
+        --host=#{host}
         --disable-shared
         --enable-static
         #{flags.join(" ")}

@@ -64,7 +64,7 @@ module CurlBuilder
     sdk_version:        "7.0",
     osx_sdk_version:    "10.8",
     libcurl_version:    "7.32.0",
-    architectures:      %w(i386 armv7 armv7s x86_64),
+    architectures:      %w(i386 armv7 armv7s arm64 x86_64),
     xcode_home:         "/Applications/Xcode.app/Contents/Developer",
     run_on_dir:         Dir::pwd,
     work_dir:           "build",
