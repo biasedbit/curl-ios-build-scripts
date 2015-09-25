@@ -62,6 +62,7 @@ module CurlBuilder
     debug_symbols:      false,
     curldebug:          false,
     sdk_version:        "9.0",
+    tvos_sdk_version:   "none",
     osx_sdk_version:    "10.10",
     libcurl_version:    "7.38.0",
     architectures:      %w(i386 armv7 armv7s arm64 x86_64),
@@ -73,7 +74,10 @@ module CurlBuilder
     cleanup:            true,
   }
 
-  VALID_ARGS = {architectures: %w(i386 armv7 armv7s arm64 x86_64)}
+  VALID_ARGS = {
+    architectures:        %w(i386 armv7 armv7s arm64 x86_64),
+    architectures_64_bit: %w(arm64 x86_64)
+  }
 
 
   attr_accessor :logger
@@ -94,7 +98,7 @@ module CurlBuilder
     flags.collect { |flag, enabled| enabled ? "--with-#{flag}" : "--without-#{flag}" }
   end
 
-  def filter_valid_archs(archs)
-    VALID_ARGS[:architectures] & archs
+  def filter_valid_archs(archs, only_64_bit = false)
+    VALID_ARGS[(!only_64_bit ? :architectures : :architectures_64_bit)] & archs
   end
 end

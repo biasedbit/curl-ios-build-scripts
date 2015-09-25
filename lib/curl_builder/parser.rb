@@ -91,6 +91,12 @@ module CurlBuilder
           setup[:sdk_version] = sdk
         end
 
+        parser.on("--tvos-sdk-version SDK",
+                  "Use specific SDK version",
+                  "  Defaults to #{param(setup[:tvos_sdk_version])}") do |sdk|
+          setup[:tvos_sdk_version] = sdk
+        end
+
         parser.on("--osx-sdk-version SDK",
                   "Use specific SDK version",
                   "  Defaults to #{param(setup[:osx_sdk_version])}") do |sdk|
@@ -149,6 +155,14 @@ module CurlBuilder
       }
 
       parser.parse(args)
+
+      if setup[:sdk_version] != "none" && setup[:tvos_sdk_version] != "none"
+        raise Errors::TaskError, "Builds with both iOS and tvOS SDKs active are unsupported. Please set either --sdk-version or --tvos-sdk-version to none."
+      end
+
+      if setup[:tvos_sdk_version] != "none"
+        setup[:architectures] = CurlBuilder.filter_valid_archs(setup[:architectures], true)
+      end
 
       {setup: setup, protocols: protocols, flags: flags}
     end
