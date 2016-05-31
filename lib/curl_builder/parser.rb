@@ -67,6 +67,12 @@ module CurlBuilder
           setup[:architectures] = CurlBuilder.filter_valid_archs(archs)
         end
 
+        parser.on("--[no-]bitcode",
+                  "Use BITCODE flag when building",
+                  "  Defaults to #{param(setup[:bitcode])}") do |bitcode|
+          setup[:bitcode] = bitcode
+        end
+
         parser.on("--enable-protocols A,B,C",
                   Array,
                   "Enables a list of protocols",
