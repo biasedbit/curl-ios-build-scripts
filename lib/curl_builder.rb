@@ -60,7 +60,7 @@ module CurlBuilder
     verbose:            false,
     debug_symbols:      false,
     curldebug:          false,
-    sdk_version:        "9.2",
+    sdk_version:        "9.3",
     osx_sdk_version:    "10.11",
     libcurl_version:    "7.47.1",
     architectures:      %w(i386 armv7 armv7s arm64 x86_64),
