@@ -102,12 +102,16 @@ module CurlBuilder
         min_version = "-mmacosx-version-min=10.7"
       end
 
+      if setup(:bitcode)
+        embed_bitcode = "-fembed-bitcode"
+      end
+
       sdk_version = sdk_version_for platform
       sdk = "#{setup(:xcode_home)}/Platforms/#{platform}.platform/Developer/SDKs/#{platform}#{sdk_version}.sdk"
 
       {
         ldflags: "-arch #{architecture} -pipe -isysroot #{sdk}",
-        cflags:  "-arch #{architecture} -pipe -isysroot #{sdk} #{min_version}"
+        cflags:  "-arch #{architecture} -pipe -isysroot #{sdk} #{min_version} #{embed_bitcode}"
       }
     end
 
