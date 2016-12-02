@@ -85,6 +85,22 @@ module CurlBuilder
           end
         end
 
+
+        flags_defalt = ""
+        flags.select { |k, value| value }.each do |flag|
+            flags_defalt += flag[0] + (flag[1].is_a?(String)? ("=" + flag[1].to_s): "") + ","
+        end
+        parser.on("--enable-flags A,B=string,C",
+                  Array,
+                  "Enables a list of flags with values",
+                  "  Defaults to " + flags_defalt) do |enabled|
+          enabled.each do |k|
+            flag = k.split("=")
+            flags[flag[0]] = flag[1]? flag[1] :true
+          end
+        end	
+
+
         parser.on("--sdk-version SDK",
                   "Use specific SDK version",
                   "  Defaults to #{param(setup[:sdk_version])}") do |sdk|
