@@ -90,7 +90,7 @@ module CurlBuilder
   end
 
   def build_flags(flags)
-    flags.collect { |flag, enabled| enabled ? "--with-#{flag}" : "--without-#{flag}" }
+    flags.collect { |flag, enabled| enabled ? "--with-#{flag}#{"="+enabled if enabled!=true}" : "--without-#{flag}" }
   end
 
   def filter_valid_archs(archs)
