@@ -99,7 +99,7 @@ module CurlBuilder
         version = architecture == "arm64" ? "7.0" : "6.0"
         min_version = "-miphoneos-version-min=#{version}"
       else
-        min_version = "-mmacosx-version-min=10.7"
+        min_version = "-mmacosx-version-min=10.8"
       end
 
       sdk_version = sdk_version_for platform
