@@ -96,7 +96,7 @@ module CurlBuilder
         version = "6.0"
         min_version = "-miphoneos-version-min=#{version}"
       elsif platform == "iPhoneOS"
-        version = architecture == "arm64" ? "6.0" : "5.0"
+        version = "6.0"
         min_version = "-miphoneos-version-min=#{version}"
       else
         min_version = "-mmacosx-version-min=10.7"
