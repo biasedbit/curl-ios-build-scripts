@@ -54,7 +54,7 @@ module CurlBuilder
     def copy_include_dir(architecture, name)
       target_dir = result_include_dir(name)
       FileUtils.mkdir_p target_dir
-      files_to_copy = File.join output_dir_for(architecture), "include", "curl", "*"
+      files_to_copy = File.join output_dir_for(architecture), "include", "curl"
 
       copy_command = "cp -R #{files_to_copy} #{target_dir}"
       setup(:verbose) ? system(copy_command) : `#{copy_command} &>/dev/null`
