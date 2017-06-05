@@ -57,11 +57,11 @@ module CurlBuilder
     def platform_for(architecture)
       case architecture
       when "x86_64"
-        setup(:osx_sdk_version) == "none" ? (setup(:tvos_version) == "none" ? "iPhoneSimulator" : "AppleTVSimulator") : "MacOSX"
+        setup(:osx_sdk_version) == "none" ? (setup(:tvos_sdk_version) == "none" ? "iPhoneSimulator" : "AppleTVSimulator") : "MacOSX"
       when "i386"
-        setup(:tvos_version) == "none" ? "iPhoneSimulator" : "AppleTVSimulator"
+        setup(:tvos_sdk_version) == "none" ? "iPhoneSimulator" : "AppleTVSimulator"
       else
-        setup(:tvos_version) == "none" ? "iPhoneOS" : "AppleTVOS"
+        setup(:tvos_sdk_version) == "none" ? "iPhoneOS" : "AppleTVOS"
       end
     end
 
