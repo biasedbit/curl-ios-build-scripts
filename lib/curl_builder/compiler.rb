@@ -107,7 +107,7 @@ module CurlBuilder
 
       {
         ldflags: "-arch #{architecture} -pipe -isysroot #{sdk}",
-        cflags:  "-arch #{architecture} -pipe -isysroot #{sdk} #{min_version}"
+        cflags:  "-arch #{architecture} -pipe -isysroot #{sdk} #{min_version} -Werror=partial-availability"
       }
     end
 
