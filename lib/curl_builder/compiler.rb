@@ -141,6 +141,7 @@ module CurlBuilder
         --host=#{host}
         --disable-shared
         --enable-static
+        --enable-ipv6
         --disable-ntlm-wb
         #{flags.join(" ")}
         --prefix="#{output_dir_for architecture}"
