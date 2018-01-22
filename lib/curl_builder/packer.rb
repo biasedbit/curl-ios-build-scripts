@@ -21,7 +21,7 @@ module CurlBuilder
       info { "Packing binaries for architectures '#{param(compiled_architectures.join(" "))}'..." }
 
       osx = setup(:osx_sdk_version) != "none" ? compiled_architectures.select { |arch| arch.match(/^x86_64/) } : []
-      ios = compiled_architectures - osx
+      ios = compiled_architectures
       arm = ios.select { |arch| arch.match(/^arm/) }
       arm64 = ios.select { |arch| arch.match(/^arm64/) }
  
@@ -33,6 +33,7 @@ module CurlBuilder
       end
 
       if create_binary_for ios, "ios-dev"
+        # Fix: now iPhone simulator may also use x86_64
         successful["ios-dev"] = ios
         copy_include_dir ios.first, "ios-dev"
       end
