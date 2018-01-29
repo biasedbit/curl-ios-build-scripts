@@ -67,7 +67,7 @@ module CurlBuilder
 
     def tools_for(platform)
       {
-        cc:     find_tool("gcc", platform),
+        cc:     find_tool("clang", platform),
         ld:     find_tool("ld", platform),
         ar:     find_tool("ar", platform),
         as:     find_tool("as", platform),
@@ -96,18 +96,18 @@ module CurlBuilder
         version = "6.0"
         min_version = "-miphoneos-version-min=#{version}"
       elsif platform == "iPhoneOS"
-        version = architecture == "arm64" ? "6.0" : "5.0"
+        version = architecture == "arm64" ? "7.0" : "6.0"
         min_version = "-miphoneos-version-min=#{version}"
       else
-        min_version = "-mmacosx-version-min=10.7"
+        min_version = "-mmacosx-version-min=10.8"
       end
 
       sdk_version = sdk_version_for platform
       sdk = "#{setup(:xcode_home)}/Platforms/#{platform}.platform/Developer/SDKs/#{platform}#{sdk_version}.sdk"
 
       {
-        ldflags: "-arch #{architecture} -pipe -isysroot #{sdk}",
-        cflags:  "-arch #{architecture} -pipe -isysroot #{sdk} #{min_version}"
+        ldflags: "-arch #{architecture} -isysroot #{sdk}",
+        cflags:  "-arch #{architecture} -pipe -Os -gdwarf-2 -isysroot #{sdk} #{min_version} -fembed-bitcode -Werror=partial-availability"
       }
     end
 
